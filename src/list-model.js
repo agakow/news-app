@@ -1,4 +1,3 @@
-
 var List = (function () {
 
   var articles;
@@ -17,9 +16,9 @@ var List = (function () {
           }
         };
       if(url==="headlines") {
-      xhttp.open("GET", 'http://localhost:4567/' + url);
+      xhttp.open("GET", 'http://content.guardianapis.com/uk?show-editors-picks=true&show-fields=thumbnail,body&api-key=' + Guardian.key());
     } else {
-      xhttp.open("GET", 'http://localhost:4567/' + url + '?section=' + sectionName);
+      xhttp.open("GET", 'http://content.guardianapis.com/search?section=' + sectionName + '&show-fields=thumbnail,body&api-key=' + Guardian.key());
     }
       xhttp.send();
     }
