@@ -4,63 +4,42 @@ document.addEventListener('DOMContentLoaded', function() {
       window.addEventListener("hashchange", showCurrentPageArticle);
     })();
 
-    function showCurrentPageArticle() {
-      var url = getArticleFromUrl(window.location);
-      if (url === "") {
-        showArticleList(url);
-      } else if(isNaN(url)) {
-       showSectionList(url);
-     } else {
-        showArticle(url);
-     }
+    function getArticleFromUrl(location) {
+       return location.hash.split('#')[1];
     }
 
-    function getArticleFromUrl(location) {
-      return location.hash.split('#')[1];
+    function showCurrentPageArticle() {
+      var url = getArticleFromUrl(window.location);
+      if (!isNaN(url)) {
+         showArticle(url);
+      } else {
+         showArticleList(url);
+      }
     }
 
     function showArticle(article) {
-      var list = List.printArticles();
-      document
-        .getElementById('content')
-        .innerHTML = list[article].fields.body;
-      document
-        .getElementById('title')
-        .innerHTML = list[article].webTitle;
-      document
-        .getElementById('listSection')
-        .setAttribute('hidden', true);
+      List.printArticles(function(news) {
+         View.showTitle(article, news);
+         List.summarise(news[article].id, function(summary) {
+            View.article(summary);
+         });
+      });
     }
 
-    function showArticleList(article) {
-      View.noteList();
-      document
-        .getElementById('listSection')
-        .removeAttribute('hidden');
-      document
-        .getElementById('content')
-        .innerHTML = "";
-      document
-        .getElementById('title')
-        .innerHTML = "";
-      }
+   function showArticleList(articles) {
+     if (isNaN(articles)) {
+        List.section(articles, function(list) {
+           View.newsList(list);
+        });
+     } else {
+        List.headlines(articles, function(list) {
+           View.newsList(list);
+        });
+     }
+        View.renderArticleList();
+   }
 
-      function showSectionList(articles) {
-        List.section(articles);
-        View.noteList();
-        document
-          .getElementById('listSection')
-          .removeAttribute('hidden');
-        document
-          .getElementById('content')
-          .innerHTML = "";
-        document
-          .getElementById('title')
-          .innerHTML = "";
-        }
-
-      List.headlines();
-      View.noteList();
-
-
+   List.headlines(function(list) {
+      View.newsList(list);
+   });
 });
