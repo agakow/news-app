@@ -15,9 +15,12 @@
             var listDiv = document.createElement('div');
             var listLink = document.createElement('a');
             var listText = document.createTextNode(list[i].webTitle);
+            var listImg = document.createElement('img');
+            listImg.setAttribute('src', list[i].fields.thumbnail);
             listLink.setAttribute('href', '#' + i );
             listLink.appendChild(listDiv);
             listDiv.appendChild(listText);
+            listLink.appendChild(listImg);
             document.getElementById('list').appendChild(listLink);
             }
         },500);
