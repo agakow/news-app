@@ -1,3 +1,25 @@
-.center {
-  align-text: center;
+
+#tags {
+  padding: 5px;
+  margin: 15px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+#tags a {
+  margin: 10px;
+}
+
+#list div {
+  font-size: 20px;
+}
+
+#list img {
+  margin-bottom: 40px;
+  margin-top: 5px;
+}
+
+#article {
+  margin-right: 200px;
+  margin-left: 200px;"
 }
